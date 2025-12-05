@@ -9,10 +9,10 @@ import streamlit as st
 # Config: Databricks endpoint
 # -----------------------------
 # We will set these values in Render's Environment tab
-ENDPOINT_URL = os.getenv("https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations")
+DATABRICKS_ENDPOINT_URL = os.getenv("https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations")
 DATABRICKS_TOKEN = os.getenv("dapi3aab542686d199998fd2875e68aad8c5")
 
-if ENDPOINT_URL is None or DATABRICKS_TOKEN is None:
+if DATABRICKS_ENDPOINT_URL is None or DATABRICKS_TOKEN is None:
     st.error("Endpoint URL or token not set. Please configure environment variables.")
     st.stop()
 
@@ -47,7 +47,7 @@ def call_databricks_model(row_dict: dict):
         }
     }
 
-    resp = requests.post(ENDPOINT_URL, headers=HEADERS, json=payload, timeout=30)
+    resp = requests.post(DATABRICKS_ENDPOINT_URL, headers=HEADERS, json=payload, timeout=30)
 
     if resp.status_code != 200:
         raise RuntimeError(
