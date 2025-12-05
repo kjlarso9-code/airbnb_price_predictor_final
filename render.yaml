@@ -1,0 +1,16 @@
+# render.yaml
+services:
+  - type: web
+    name: airbnb-price-streamlit
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      # These two you will override in the Render UI with real values
+      - key: DATABRICKS_ENDPOINT_URL
+        value: "https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations/invocations"
+      - key: DATABRICKS_TOKEN
+        value: "dapi4f7ffb9005235dd2f022ce358806a891"
