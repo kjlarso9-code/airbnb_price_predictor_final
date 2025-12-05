@@ -13,4 +13,4 @@ services:
       - key: DATABRICKS_ENDPOINT_URL
         value: "https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations/invocations"
       - key: DATABRICKS_TOKEN
-        value: "dapi4f7ffb9005235dd2f022ce358806a891"
+        value: "dapi3aab542686d199998fd2875e68aad8c5"
