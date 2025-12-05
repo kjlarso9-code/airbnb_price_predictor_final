@@ -1,7 +1,6 @@
 import os
 import json
 import requests
-import numpy as np
 import streamlit as st
 
 # -----------------------------
@@ -25,7 +24,7 @@ HEADERS = {
     "Content-Type": "application/json",
 }
 
-# Must match the training notebook / Databricks model input schema
+# Must match the Databricks model input schema
 FEATURE_COLUMNS = [
     "bedrooms",
     "bathrooms",
@@ -44,8 +43,7 @@ def call_databricks_model(row_dict: dict) -> float:
     """
     Send a single-row prediction request to Databricks model serving.
 
-    The deployed model was trained on log1p(price), so the endpoint returns
-    log1p(price). We convert back to a dollar price with np.expm1.
+    The deployed model returns the predicted nightly price in dollars.
     """
     # Arrange into dataframe_split format expected by MLflow pyfunc models
     data_row = [[row_dict[col] for col in FEATURE_COLUMNS]]
@@ -74,15 +72,13 @@ def call_databricks_model(row_dict: dict) -> float:
     except json.JSONDecodeError as e:
         raise RuntimeError(f"Could not decode JSON response: {e}")
 
-    # Databricks MLflow serving returns {"predictions": [value, ...]}
+    # Databricks MLflow serving usually returns {"predictions": [value, ...]}
     try:
-        pred_log = resp_json["predictions"][0]  # this is log1p(price)
+        prediction = float(resp_json["predictions"][0])  # already in dollars
     except Exception:
         raise RuntimeError(f"Unexpected response format: {resp_json}")
 
-    # Convert log1p(price) back to price in dollars
-    price = float(np.expm1(pred_log))
-    return price
+    return prediction
 
 
 # -----------------------------
@@ -159,4 +155,4 @@ if st.button("Predict price"):
             st.error(f"Error while calling endpoint: {e}")
         else:
             st.success(f"Predicted nightly price: **${predicted_price:,.2f}**")
-            st.caption("Best ensemble model served via Databricks Model Serving")
+            st.caption("Best ensemble model served via Databric
