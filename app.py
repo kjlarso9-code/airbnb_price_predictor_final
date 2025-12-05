@@ -1,4 +1,3 @@
-# app.py
 import os
 import json
 import requests
@@ -8,18 +7,24 @@ import streamlit as st
 # -----------------------------
 # Config: Databricks endpoint
 # -----------------------------
-# We will set these values in Render's Environment tab
-DATABRICKS_ENDPOINT_URL = os.getenv("https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations")
-DATABRICKS_TOKEN = os.getenv("dapi3aab542686d199998fd2875e68aad8c5")
+# These are read from environment variables set in Render (or locally).
+# Do NOT hard-code the URL or token in the code.
+DATABRICKS_ENDPOINT_URL = os.getenv("DATABRICKS_ENDPOINT_URL")
+DATABRICKS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 
-if DATABRICKS_ENDPOINT_URL is None or DATABRICKS_TOKEN is None:
-    st.error("Endpoint URL or token not set. Please configure environment variables.")
+if not DATABRICKS_ENDPOINT_URL or not DATABRICKS_TOKEN:
+    st.error(
+        "Endpoint URL or token not set. "
+        "Please configure DATABRICKS_ENDPOINT_URL and DATABRICKS_TOKEN "
+        "as environment variables."
+    )
     st.stop()
 
 HEADERS = {
     "Authorization": f"Bearer {DATABRICKS_TOKEN}",
     "Content-Type": "application/json",
 }
+
 
 FEATURE_COLUMNS = [
     "bedrooms",
