@@ -108,7 +108,7 @@ with col2:
     )
 
     neighbourhood_cleansed = st.text_input(
-        "Neighbourhood (cleansed)", value="Central Phoenix"
+        "Neighbourhood (cleansed)", value="San Diego"
     )
 
 if st.button("Predict price"):
