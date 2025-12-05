@@ -10,7 +10,7 @@ import streamlit as st
 # -----------------------------
 # Set these as environment variables on Render:
 #   DATABRICKS_ENDPOINT_URL = "https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations"
-#   DATABRICKS_TOKEN = "your-PAT-token"
+#   DATABRICKS_TOKEN = "dapi3aab542686d199998fd2875e68aad8c5"
 ENDPOINT_URL = os.getenv("https://dbc-65647401-6b36.cloud.databricks.com/serving-endpoints/airbnb_price_prediction/invocations")
 DATABRICKS_TOKEN = os.getenv("dapi3aab542686d199998fd2875e68aad8c5")
 
