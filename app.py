@@ -155,4 +155,5 @@ if st.button("Predict price"):
             st.error(f"Error while calling endpoint: {e}")
         else:
             st.success(f"Predicted nightly price: **${predicted_price:,.2f}**")
-            st.caption("Best ensemble model served via Databric
+            st.caption("Best ensemble model served via Databricks Model Serving")
+
