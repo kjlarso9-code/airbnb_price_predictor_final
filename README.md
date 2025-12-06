@@ -124,6 +124,23 @@ Secrets (endpoint URL and token) are provided via environment variables, not har
 Deployed app:  
 **[https://airbnbpricepredictor-9hepznyari5xotvfaz6z7e.streamlit.app/](https://airbnb-price-predictor-final.onrender.com/)**
 
+---
+
+## 🧠 How the App Works
+
+User enters listing details in the Streamlit form.
+The app assembles the inputs into the correct feature order.
+A JSON payload in dataframe_split format is sent to the Databricks Model Serving endpoint.
+The deployed model (including preprocessing + ensemble) returns a predicted price.
+The app displays the estimated nightly price to the user.
+
+---
+
+## 🙋‍♀️ Author
+
+Kendall Larson
+CIS 508 – Term Project
+Instructor: Sang-Pil Han
 
 ---
 
@@ -135,18 +152,4 @@ airbnb_price_predictor/
 ├── requirements.txt # Python dependencies
 ├── render.yaml      # Render deployment configuration
 ├── README.md        # Project documentation
-└── notebooks/       # (Optional) exported Databricks notebooks
-
-## 🧠 How the App Works
-
-User enters listing details in the Streamlit form.
-The app assembles the inputs into the correct feature order.
-A JSON payload in dataframe_split format is sent to the Databricks Model Serving endpoint.
-The deployed model (including preprocessing + ensemble) returns a predicted price.
-The app displays the estimated nightly price to the user.
-
-## 🙋‍♀️ Author
-
-Kendall Larson
-CIS 508 – Term Project
-Instructor: Sang-Pil Han
+└── notebooks/       # Exported Databricks notebooks
