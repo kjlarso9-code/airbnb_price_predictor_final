@@ -44,7 +44,7 @@ def call_databricks_model(row_dict: dict) -> float:
     Send a single-row prediction request to Databricks model serving.
 
     The deployed model returns the predicted nightly price in dollars.
-    We clamp the result to a reasonable range (20–1000) for display.
+    We enforce only a minimum price of $20 to avoid weird tiny values.
     """
     # Arrange into dataframe_split format expected by MLflow pyfunc models
     data_row = [[row_dict[col] for col in FEATURE_COLUMNS]]
@@ -79,8 +79,8 @@ def call_databricks_model(row_dict: dict) -> float:
     except Exception:
         raise RuntimeError(f"Unexpected response format: {resp_json}")
 
-    # Clamp to a reasonable range based on the cleaned training data
-    prediction = max(20.0, min(prediction, 1000.0))
+    # Enforce a minimum nightly price of $20; no upper cap
+    prediction = max(20.0, prediction)
 
     return prediction
 
