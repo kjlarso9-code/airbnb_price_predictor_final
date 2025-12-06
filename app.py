@@ -44,6 +44,7 @@ def call_databricks_model(row_dict: dict) -> float:
     Send a single-row prediction request to Databricks model serving.
 
     The deployed model returns the predicted nightly price in dollars.
+    We clamp the result to a reasonable range (20–1000) for display.
     """
     # Arrange into dataframe_split format expected by MLflow pyfunc models
     data_row = [[row_dict[col] for col in FEATURE_COLUMNS]]
@@ -77,6 +78,9 @@ def call_databricks_model(row_dict: dict) -> float:
         prediction = float(resp_json["predictions"][0])  # already in dollars
     except Exception:
         raise RuntimeError(f"Unexpected response format: {resp_json}")
+
+    # Clamp to a reasonable range based on the cleaned training data
+    prediction = max(20.0, min(prediction, 1000.0))
 
     return prediction
 
@@ -117,8 +121,9 @@ with col2:
         value=4.5,
         step=0.1,
     )
-    latitude = st.number_input("Latitude", value=33.45, format="%.6f")
-    longitude = st.number_input("Longitude", value=-112.07, format="%.6f")
+    # San Diego-ish default coordinates
+    latitude = st.number_input("Latitude", value=32.7157, format="%.6f")
+    longitude = st.number_input("Longitude", value=-117.1611, format="%.6f")
 
     room_type = st.selectbox(
         "Room type",
@@ -156,4 +161,3 @@ if st.button("Predict price"):
         else:
             st.success(f"Predicted nightly price: **${predicted_price:,.2f}**")
             st.caption("Best ensemble model served via Databricks Model Serving")
-
