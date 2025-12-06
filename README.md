@@ -128,19 +128,19 @@ Deployed app:
 
 ## 🧠 How the App Works
 
-User enters listing details in the Streamlit form.
-The app assembles the inputs into the correct feature order.
-A JSON payload in dataframe_split format is sent to the Databricks Model Serving endpoint.
-The deployed model (including preprocessing + ensemble) returns a predicted price.
-The app displays the estimated nightly price to the user.
+User enters listing details in the Streamlit form. <br>
+The app assembles the inputs into the correct feature order. <br>
+A JSON payload in dataframe_split format is sent to the Databricks Model Serving endpoint. <br>
+The deployed model (including preprocessing + ensemble) returns a predicted price. <br>
+The app displays the estimated nightly price to the user.<br>
 
 ---
 
 ## 🙋‍♀️ Author
 
-Kendall Larson
-CIS 508 – Term Project
-Instructor: Sang-Pil Han
+Kendall Larson <br>
+CIS 508 – Term Project <br>
+Instructor: Sang-Pil Han<br>
 
 ---
 
